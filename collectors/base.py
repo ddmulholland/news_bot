@@ -2,8 +2,9 @@
 from abc import ABC, abstractmethod
 from typing import List, Any, Dict, Optional
 from dataclasses import dataclass
-import datetime
+from datetime import datetime, timedelta
 import hashlib
+import json
 
 @dataclass
 class Article:
@@ -18,6 +19,8 @@ class Article:
   image_url: Optional[str] = None
   category: Optional[str] = None
   collector_type: Optional[str] = None  # Identifies which collector provided this article
+  # TODO: Make this object JSON-serializable
+  # def __iter__ 
 
 class BaseCollector(ABC):
   """Abstract base class all collectors must implement"""
@@ -79,3 +82,18 @@ class BaseCollector(ABC):
     title = article_data.get('title', '')
     unique_string = f"{url}:{title}"
     return hashlib.md5(unique_string.encode()).hexdigest()
+
+  def save_articles(self, articles, collector_name, filename=None) -> None:
+    """
+    Save the articles to a JSON file
+
+    args: articles (list): List of Articles
+    """
+    if not filename:
+      date_str = datetime.now().strftime('%Y%m%d')
+      filename = f"a_and_d_news{date_str}_{collector_name}.json"
+
+    with open(filename, 'w', encoding='utf-8') as f:
+      json.dump(articles, f, indent=2, ensure_ascii=False)
+
+    print(f"Saved {len(articles)} articles to {filename}")

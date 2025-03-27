@@ -26,8 +26,9 @@ class NewsAPICollector(BaseCollector):
       raise ValueError("NewsAPI key not found")
 
     self.base_url = "https://newsapi.org/v2/everything"
+    self.collector_name = 'NewsAPI'
 
-  def collect(self, days=1):
+  def collect(self, days=1, **kwargs):
     """
     Fetch Aerospace and Defense news from last specified days.
 
@@ -98,20 +99,20 @@ class NewsAPICollector(BaseCollector):
     return article
   
 
-  def save_articles(self, articles, filename=None):
-    """
-    Save articles to a JSON file.
+  # def save_articles(self, articles, filename=None):
+  #   """
+  #   Save articles to a JSON file.
 
-    Args:
-      articles (list): List of article dictionaries
-      filename (str, optional): Output filename. Defaults to 'aerospace_defense_news_{date}.json'
-    """
-    if not filename:
-      date_str = datetime.now().strftime('%Y%m%d')
-      filename = f"aerospace_defense_news_{date_str}.json"
+  #   Args:
+  #     articles (list): List of article dictionaries
+  #     filename (str, optional): Output filename. Defaults to 'aerospace_defense_news_{date}.json'
+  #   """
+  #   if not filename:
+  #     date_str = datetime.now().strftime('%Y%m%d')
+  #     filename = f"aerospace_defense_news_{date_str}.json"
 
-    with open(filename, 'w', encoding='utf-8') as f:
-      json.dump(articles, f, indent=2, ensure_ascii=False)
+  #   with open(filename, 'w', encoding='utf-8') as f:
+  #     json.dump(articles, f, indent=2, ensure_ascii=False)
 
-    print(f"Saved {len(articles)} articles to {filename}")
+  #   print(f"Saved {len(articles)} articles to {filename}")
     

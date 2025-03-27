@@ -8,9 +8,9 @@ if __name__ == '__main__':
   print(f"Found {len(NewsAPI_articles)} aerospace and defense news articles from NewsAPI")
 
   # Print headline and source of first 5 articles
-  for i, article in enumerate(NewsAPI_articles[:5]):
-    NewsAPI_collector.normalize_article(article)
+  for i, article in enumerate(NewsAPI_articles[:10]):
+    NewsAPI_articles[i] = NewsAPI_collector.normalize_article(article)
     print(f"{i+1}. {article['title']} ({article['source']})")
 
-  NewsAPI_collector.save_articles(NewsAPI_articles)
+  NewsAPI_collector.save_articles(NewsAPI_articles, NewsAPI_collector.collector_name)
   
