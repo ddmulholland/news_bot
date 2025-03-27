@@ -1,15 +1,16 @@
 # Get news from NewsAPI
-
 import os
 import requests
 from datetime import datetime, timedelta
 import json
 from dotenv import load_dotenv
+from .base import BaseCollector, Article
+from typing import List, Dict, Any, Optional
 
 # load env vars from .env file 
 load_dotenv()
 
-class NewsAPICollector:
+class NewsAPICollector(BaseCollector):
   """
   Collector for retreiving news from NewsAPI.
   """
@@ -26,7 +27,7 @@ class NewsAPICollector:
 
     self.base_url = "https://newsapi.org/v2/everything"
 
-  def get_aero_news(self, days=1):
+  def collect(self, days=1):
     """
     Fetch Aerospace and Defense news from last specified days.
 
@@ -77,6 +78,25 @@ class NewsAPICollector:
     articles = data.get('articles', [])
 
     return articles
+
+  def search(self, **kwargs) -> List[Article]:
+    pass
+
+  def normalize_article(self, raw_article: Dict[str, Any]) -> Article:
+    article = Article(
+      id=self.generate_unique_id(raw_article),
+      source= raw_article['source']['name'],
+      title= raw_article['title'],
+      description= raw_article['description'],
+      url= raw_article['url'],
+      author= raw_article['author'],
+      content= raw_article['content'],
+      image_url= raw_article['urlToImage'],
+      category= None,
+      collector_type = 'NewsAPICollector',
+    )
+    return article
+  
 
   def save_articles(self, articles, filename=None):
     """
