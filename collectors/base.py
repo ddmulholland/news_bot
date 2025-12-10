@@ -1,7 +1,7 @@
 # Shared collector functionality
 from abc import ABC, abstractmethod
 from typing import List, Any, Dict, Optional
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import datetime, timedelta
 import hashlib
 import json
@@ -20,7 +20,9 @@ class Article:
   category: Optional[str] = None
   collector_type: Optional[str] = None  # Identifies which collector provided this article
   # TODO: Make this object JSON-serializable
-  # def __iter__ 
+  def __iter__(self):
+    return iter(asdict(self).values())
+    
 
 class BaseCollector(ABC):
   """Abstract base class all collectors must implement"""

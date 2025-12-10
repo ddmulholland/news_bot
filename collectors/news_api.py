@@ -80,8 +80,8 @@ class NewsAPICollector(BaseCollector):
 
     return articles
 
-  def search(self, **kwargs) -> List[Article]:
-    pass
+  def search(self, query: str, **kwargs) -> List[Article]:
+    return []
 
   def normalize_article(self, raw_article: Dict[str, Any]) -> Article:
     article = Article(

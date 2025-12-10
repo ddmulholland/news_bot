@@ -17,11 +17,3 @@ The aerospace and defense sector is extremely impactful in today's world both do
 
 ### License
 Bot for aggregating news sources for A&amp;D research.
-
-- What was your motivation?
-- Why did you build this project?
-- What problem does this solve?
-- What did you learn?
-- What makes this project stand out
-  - "features" section
-  - 
